@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiPoc.ViewModel"
+             x:DataType="viewModels:CustomerEditViewModel"
+             x:Class="MauiPoc.Views.CustomerEditPage"
+             Title="Edit Customer">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="FormLabel">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="8,8,8,4" />
+            <Setter Property="FontAutoScalingEnabled" Value="True" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="Entry" x:Key="FormEntry">
+            <Setter Property="Margin" Value="8,0,8,8" />
+            <Setter Property="BackgroundColor" Value="#f1f3f5" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="DatePicker" x:Key="FormDatePicker">
+            <Setter Property="Margin" Value="8,0,8,8" />
+            <Setter Property="BackgroundColor" Value="#f1f3f5" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <HorizontalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="End" Spacing="0">
+            <Button x:Name="btnCancel"
+                    CornerRadius="4"
+                    BackgroundColor="#2B0B98"
+                    TextColor="White"
+                    Margin="8,8,8,16"
+                    Command="{Binding CancelCommand}"
+                    Text="Cancel" />
+
+            <Button x:Name="btnSaveCustomer"
+                    CornerRadius="4"
+                    BackgroundColor="#2B0B98"
+                    TextColor="White"
+                    Margin="8,8,8,16"
+                    Command="{Binding SaveCustomerCommand}"
+                    Text="Save Customer" />
+
+            <Button x:Name="btnDeleteCustomer"
+                    CornerRadius="4"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    Margin="8,8,16,16"
+                    Command="{Binding DeleteCustomerCommand}"
+                    IsVisible="{Binding CanDeleteCustomer}"
+                    Text="Delete Customer" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1" Grid.Column="0">
+            <Grid Margin="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       Style="{StaticResource FormLabel}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="First Name" />
+                            <Span Text=" *" TextColor="Red" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Grid.Row="1" Grid.Column="0"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.FirstName}" />
+
+                <Label Grid.Row="0" Grid.Column="1"
+                       Style="{StaticResource FormLabel}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Last Name" />
+                            <Span Text=" *" TextColor="Red" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Grid.Row="1" Grid.Column="1"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.LastName}" />
+
+                <Label Grid.Row="0" Grid.Column="2"
+                       Style="{StaticResource FormLabel}"
+                       Text="Date of Birth" />
+                <DatePicker Grid.Row="1" Grid.Column="2"
+                            Style="{StaticResource FormDatePicker}"
+                            Date="{Binding Customer.DateOfBirth}" />
+
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       Style="{StaticResource FormLabel}"
+                       Text="Email" />
+                <Entry Grid.Row="3" Grid.Column="0"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.Email}" />
+
+                <Label Grid.Row="2" Grid.Column="1"
+                       Style="{StaticResource FormLabel}"
+                       Text="Phone" />
+                <Entry Grid.Row="3" Grid.Column="1"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.PhoneNumber}" />
+
+
+                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                       Style="{StaticResource FormLabel}"
+                       Text="Address" />
+                <Entry Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.Address}" />
+
+                <Label Grid.Row="4" Grid.Column="2"
+                       Style="{StaticResource FormLabel}"
+                       Text="City" />
+                <Entry Grid.Row="5" Grid.Column="2"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.City}" />
+
+
+                <Label Grid.Row="6" Grid.Column="0"
+                       Style="{StaticResource FormLabel}"
+                       Text="State" />
+                <Entry Grid.Row="7" Grid.Column="0"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.State}" />
+
+                <Label Grid.Row="6" Grid.Column="1"
+                       Style="{StaticResource FormLabel}"
+                       Text="Zip Code" />
+                <Entry Grid.Row="7" Grid.Column="1"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.ZipCode}" />
+
+                <Label Grid.Row="6" Grid.Column="2"
+                       Style="{StaticResource FormLabel}"
+                       Text="Country" />
+                <Entry Grid.Row="7" Grid.Column="2"
+                       Style="{StaticResource FormEntry}"
+                       Text="{Binding Customer.Country}" />
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

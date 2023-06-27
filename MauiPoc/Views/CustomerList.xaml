@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiPoc.Models"
+             xmlns:viewModels="clr-namespace:MauiPoc.ViewModel"
+             x:DataType="viewModels:CustomerListViewModel"
+             x:Class="MauiPoc.Views.CustomerList"
+             x:Name="customerList">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="CustomerDetailLabel">
+            <Setter Property="TextColor" Value="#FFFFFF" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="btnAddCustomer" Grid.Row="0" Grid.Column="0"
+                HorizontalOptions="End" Margin="16" CornerRadius="4"
+                BackgroundColor="#2B0B98" TextColor="White"
+                Command="{Binding AddCustomerCommand}"
+                Text="Add Customer" />
+
+        <CollectionView x:Name="lvCustomers"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="12,0"
+                        SelectionMode="None"
+                        ItemsSource="{Binding Customers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:CustomerModel">
+                    <Border Margin="4,4"
+                            Padding="16,8"
+                            StrokeThickness="0"
+                            Background="#2B0B98">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="6" />
+                        </Border.StrokeShape>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCustomerCommand}"
+                                                  CommandParameter="{Binding .}"
+                                                  NumberOfTapsRequired="1"
+                                                  Buttons="Primary" />
+                        </Border.GestureRecognizers>
+
+                        <Grid RowSpacing="2" ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource CustomerDetailLabel}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding FirstName}" />
+                                        <Span Text=" " />
+                                        <Span Text="{Binding LastName}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource CustomerDetailLabel}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="DOB" />
+                                        <Span Text=": " />
+                                        <Span Text="{Binding DateOfBirth, StringFormat='{0:d}'}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource CustomerDetailLabel}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Email" />
+                                        <Span Text=": " />
+                                        <Span Text="{Binding Email}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource CustomerDetailLabel}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Phone" />
+                                        <Span Text=": " />
+                                        <Span Text="{Binding PhoneNumber}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CustomerDetailLabel}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Address" />
+                                        <Span Text=": " />
+                                        <Span Text="{Binding Address}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding City}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding State}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding ZipCode}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding Country}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
